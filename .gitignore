@@ -1,0 +1,8 @@
+.local
+.vscode
+__pycache__
+*.mp4
+*.mov
+*.ism*
+*.log*
+test*
