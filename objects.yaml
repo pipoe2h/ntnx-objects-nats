@@ -1,0 +1,69 @@
+metadata:
+  name: objects
+  labels:
+    nuclio.io/project-name: default
+  resourceVersion: "1951575"
+spec:
+  handler: "main:handler"
+  runtime: "python:3.6"
+  env:
+    - name: ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: objects-secret
+          key: accesskey
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: objects-secret
+          key: secretkey
+    - name: AWS_REGION
+      value: us-east-1
+    - name: OSS_IP
+      value: "http://192.168.2.78"
+    - name: TARGET_BUCKET
+      value: vod-content
+    - name: FFMPEG_TRANSCODING_PROFILES
+      value: "https://raw.githubusercontent.com/pipoe2h/ntnx-objects-nats/master/example_profiles.yaml"
+    - name: USP_LICENSE_KEY
+      valueFrom:
+        secretKeyRef:
+          name: usp-license
+          key: usp_license_key
+  resources: {}
+  imageHash: "1597329460039686683"
+  triggers:
+    OSSEvents:
+      class: ""
+      kind: http
+      name: OSSEvents
+      maxWorkers: 1
+  version: -1
+  alias: latest
+  build:
+    functionSourceCode: aW1wb3J0IGpzb24NCmltcG9ydCBib3RvMw0KaW1wb3J0IG9zDQppbXBvcnQgeWFtbA0KaW1wb3J0IHJlcXVlc3RzDQppbXBvcnQgc2h1dGlsDQpmcm9tIGppbmphMiBpbXBvcnQgVGVtcGxhdGUNCg0KIyBJbml0aWFsaXNlIENvbmZpZ3VyYXRpb24gVmFyaWFibGVzDQpBQ0NFU1NfS0VZID0gb3MuZW52aXJvbi5nZXQoJ0FDQ0VTU19LRVknKQ0KU0VDUkVUX0tFWSA9IG9zLmVudmlyb24uZ2V0KCdTRUNSRVRfS0VZJykNCkFXU19SRUdJT04gPSBvcy5lbnZpcm9uLmdldCgnQVdTX1JFR0lPTicpDQpPU1NfSVAgPSBvcy5lbnZpcm9uLmdldCgnT1NTX0lQJykNClRBUkdFVF9CVUNLRVQgPSBvcy5lbnZpcm9uLmdldCgnVEFSR0VUX0JVQ0tFVCcpDQpGRk1QRUdfVFJBTlNDT0RJTkdfUFJPRklMRVMgPSBvcy5lbnZpcm9uLmdldCgnRkZNUEVHX1RSQU5TQ09ESU5HX1BST0ZJTEVTJykNClVTUF9MSUNFTlNFX0tFWSA9IG9zLmVudmlyb24uZ2V0KCdVU1BfTElDRU5TRV9LRVknKQ0KDQojIFNldCBDcmVkZW50aWFscyBmb3IgT2JqZWN0cw0KYm90bzMuc2V0dXBfZGVmYXVsdF9zZXNzaW9uKA0KICAgIGF3c19hY2Nlc3Nfa2V5X2lkPUFDQ0VTU19LRVksDQogICAgYXdzX3NlY3JldF9hY2Nlc3Nfa2V5PVNFQ1JFVF9LRVksDQogICAgcmVnaW9uX25hbWU9QVdTX1JFR0lPTg0KKQ0KDQojIFNjcmlwdHMgZm9yIGVuY29kaW5nL3RyYW5zY29kaW5nIGlucHV0IHZpZGVvIGZpbGUNCnBhc3MxID0gVGVtcGxhdGUoJ2ZmbXBlZyAteSAtaSB7eyBpbnB1dF9maWxlIH19IC1hbiAtYzp2IGxpYngyNjQgLXByZXNldDp2IHt7IHByZXNldCB9fSAtdGhyZWFkcyAwIC1yIHt7IGZwcyB9fSAtZyB7eyBnb3AgfX0gLWtleWludF9taW4ge3sgZ29wIH19IC1zY190aHJlc2hvbGQgMCAteDI2NG9wdHMgYmZyYW1lcz0xIC1wYXNzIDEgLWI6diB7eyBiaXRyYXRlIH19IC1wcm9maWxlOnYge3sgcHJvZmlsZSB9fSAtcyB7eyBzaXplIH19IC1mIG1wNCB7eyBvdXRwdXRfZmlsZSB9fScpDQpwYXNzMiA9IFRlbXBsYXRlKCdmZm1wZWcgLXkgLWkge3sgaW5wdXRfZmlsZSB9fSAtYzphIGFhYyAtYWMgMiAtYWIge3sgYXVkaW9fYml0cmF0ZSB9fSAtYzp2IGxpYngyNjQgLXByZXNldDp2IHt7IHByZXNldCB9fSAtdGhyZWFkcyAwIC1yIHt7IGZwcyB9fSAtZyB7eyBnb3AgfX0gLWtleWludF9taW4ge3sgZ29wIH19IC1zY190aHJlc2hvbGQgMCAteDI2NG9wdHMgYmZyYW1lcz0xIC1wYXNzIDIgLWI6diB7eyBiaXRyYXRlIH19IC1wcm9maWxlOnYge3sgcHJvZmlsZSB9fSAtcyB7eyBzaXplIH19IC1mIG1wNCB7eyBvdXRwdXRfZmlsZSB9fScpDQoNCmRlZiBoYW5kbGVyKGNvbnRleHQsIGV2ZW50KToNCiAgICBjb250ZXh0LmxvZ2dlci5pbmZvKCdVc2luZyBPYmplY3RzIGV2ZW50IHRvIGVuY29kZS90cmFuc2NvZGUgZmlsZScpDQogICAgcmVzcCA9IGpzb24ubG9hZHMoZXZlbnQuYm9keSkNCg0KICAgICMgR2V0IGJ1Y2tldCBuYW1lIGFuZCBmaWxlbmFtZSBmcm9tIE9iamVjdHMgUFVUIGV2ZW50ICAgIA0KICAgIGJ1Y2tldCA9IHJlc3BbJ1JlY29yZHMnXVswXVsnczMnXVsnYnVja2V0J11bJ25hbWUnXQ0KICAgIGlucHV0X2ZpbGVuYW1lID0gcmVzcFsnUmVjb3JkcyddWzBdWydzMyddWydvYmplY3QnXVsna2V5J10NCg0KICAgIGZpbGVuYW1lID0gaW5wdXRfZmlsZW5hbWUuc3BsaXQoJy4nKVswXS5sb3dlcigpDQoNCiAgICAjIENyZWF0ZSB0ZW1wIHdvcmtzcGFjZSBmb3IgZG93bmxvYWRpbmcgYW5kIGNvbnZlcnRpbmcgdmlkZW8gZmlsZQ0KICAgIHdvcmtfcGF0aCA9ICcvdG1wL3t9Jy5mb3JtYXQoZmlsZW5hbWUpDQogICAgcmVuZGVyZWRfcGF0aCA9IHdvcmtfcGF0aCArICcvb3V0cHV0Jw0KDQogICAgb3MubWFrZWRpcnMocmVuZGVyZWRfcGF0aCkNCg0KICAgIHRlbXBfZmlsZW5hbWUgPSB3b3JrX3BhdGggKyAnLycgKyBpbnB1dF9maWxlbmFtZS5sb3dlcigpDQoNCiAgICAjIERvd25sb2FkIHRoZSB2aWRlbyBmaWxlDQogICAgY2xpZW50ID0gYm90bzMuY2xpZW50KCdzMycsZW5kcG9pbnRfdXJsPU9TU19JUCkNCiAgICBjbGllbnQuZG93bmxvYWRfZmlsZShCdWNrZXQ9YnVja2V0LA0KICAgICAgICAgICAgICAgICAgICAgICAgS2V5PWlucHV0X2ZpbGVuYW1lLA0KICAgICAgICAgICAgICAgICAgICAgICAgRmlsZW5hbWU9dGVtcF9maWxlbmFtZSkNCg0KICAgICMgR2V0IHRoZSB0YWJsZSBmcm9tIGV4dGVybmFsIHNvdXJjZSAoR2l0SHViKSB3aXRoIHByb2ZpbGVzIGZvciBvdXRwdXQgdmlkZW9zDQogICAgcHJvZmlsZXMgPSByZXF1ZXN0cy5nZXQoRkZNUEVHX1RSQU5TQ09ESU5HX1BST0ZJTEVTKQ0KICAgIHF1YWxpdGllcyA9IHlhbWwubG9hZChwcm9maWxlcy5jb250ZW50LCBMb2FkZXI9eWFtbC5GdWxsTG9hZGVyKVsncXVhbGl0aWVzJ10NCg0KICAgIGZvciBxIGluIHF1YWxpdGllczoNCg0KICAgICAgICBvdXRwdXRfZmlsZW5hbWUgPSBmaWxlbmFtZSArICdfJyArIHEgKyAnLm1wNCcNCiAgICAgICAgb3V0cHV0X3BhdGhfZmlsZW5hbWUgPSByZW5kZXJlZF9wYXRoICsgJy8nICsgb3V0cHV0X2ZpbGVuYW1lDQoNCiAgICAgICAgcXVhbGl0aWVzW3FdWydpbnB1dF9maWxlJ10gPSB0ZW1wX2ZpbGVuYW1lDQogICAgICAgIHF1YWxpdGllc1txXVsnb3V0cHV0X2ZpbGUnXSA9IG91dHB1dF9wYXRoX2ZpbGVuYW1lDQoNCiAgICAgICAgY29tbWFuZCA9IHBhc3MxLnJlbmRlcihxdWFsaXRpZXNbcV0pDQogICAgICAgIG9zLnN5c3RlbShjb21tYW5kKQ0KDQogICAgICAgIGNvbW1hbmQgPSBwYXNzMi5yZW5kZXIocXVhbGl0aWVzW3FdKQ0KICAgICAgICBvcy5zeXN0ZW0oY29tbWFuZCkNCg0KICAgICAgICByZXNwb25zZSA9IGNsaWVudC51cGxvYWRfZmlsZShCdWNrZXQ9VEFSR0VUX0JVQ0tFVCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEtleT1maWxlbmFtZSArICcvJyArIG91dHB1dF9maWxlbmFtZSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZpbGVuYW1lPW91dHB1dF9wYXRoX2ZpbGVuYW1lKQ0KDQogICAgIyBDcmVhdGUgbWFuaWZlc3QgZmlsZSB3aXRoIE9yaWdpbiBtcDRzcGxpdCBmb3IgVk9EDQogICAgbGljZW5zZV9wYXRoID0gd29ya19wYXRoICsgJy9saWNlbnNlJw0KICAgIGlzbV9maWxlbmFtZSA9ICd7fS5pc20nLmZvcm1hdChmaWxlbmFtZSkNCiAgICBpc21fcGF0aF9maWxlbmFtZSA9IHJlbmRlcmVkX3BhdGggKyAnLycgKyBpc21fZmlsZW5hbWUNCg0KICAgIHdpdGggb3BlbihsaWNlbnNlX3BhdGgsICd3JykgYXMgZjoNCiAgICAgICAgZi53cml0ZShVU1BfTElDRU5TRV9LRVkpDQoNCiAgICBvcy5zeXN0ZW0oJ2NkIHt9ICYmIG1wNHNwbGl0IC0tbGljZW5zZS1rZXk9e30gLW8ge30gKicuZm9ybWF0KA0KICAgICAgICByZW5kZXJlZF9wYXRoLA0KICAgICAgICBsaWNlbnNlX3BhdGgsDQogICAgICAgIGlzbV9maWxlbmFtZQ0KICAgICkpDQoNCiAgICByZXNwb25zZSA9IGNsaWVudC51cGxvYWRfZmlsZShCdWNrZXQ9VEFSR0VUX0JVQ0tFVCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgS2V5PWZpbGVuYW1lICsgJy8nICsgaXNtX2ZpbGVuYW1lLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGaWxlbmFtZT1pc21fcGF0aF9maWxlbmFtZSkNCiAgICANCiAgICAjIFJlbW92ZSB0ZW1wIHdvcmtzcGFjZQ0KICAgIHNodXRpbC5ybXRyZWUod29ya19wYXRoKQ0KICAgIA0KICAgIHJldHVybiBjb250ZXh0LlJlc3BvbnNlKGJvZHk9c3RyKCdEb25lJyksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGVudF90eXBlPSd0ZXh0L3BsYWluJywNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdGF0dXNfY29kZT0yMDAp
+    baseImage: "python:alpine"
+    commands:
+      - 'apk --update add ffmpeg \'
+      - ' && rm -f /var/cache/apk/*'
+      - 'wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \'
+      - '  https://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub'
+      - 'apk --update \'
+      - '        --repository https://stable.apk.unified-streaming.com/alpine/v3.11 \'
+      - '        add \'
+      - '          mp4split=1.10.18-r0 \'
+      - ' && rm -f /var/cache/apk/*'
+      - 'pip3 install boto3 pyyaml requests jinja2'
+    runtimeAttributes:
+      repositories: []
+    codeEntryType: sourceCode
+    timestamp: 1597329466
+    image: ""
+    noCache: false
+    offline: false
+    dependencies: []
+  loggerSinks:
+    - level: debug
+  platform: {}
+  serviceType: NodePort
+  eventTimeout: ""
