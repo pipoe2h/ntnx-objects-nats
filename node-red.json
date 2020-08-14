@@ -1,0 +1,89 @@
+[
+    {
+        "id": "37f5aae8.e80946",
+        "type": "tab",
+        "label": "Objects-NATS-FaaS",
+        "disabled": false,
+        "info": "This flow subscribes to NATS Streaming to receive messages from Objects events when a new object is uploaded or updated. Then a request to the Python function for encoding/transcoding that object is made"
+    },
+    {
+        "id": "717f8ad6.9f60a4",
+        "type": "nats-streaming-server",
+        "z": "",
+        "server": "nats.nats.svc",
+        "port": "4222",
+        "cluster": "stan"
+    },
+    {
+        "id": "9d6bff88.3e548",
+        "type": "nats-streaming-server",
+        "z": "",
+        "server": "nats.nats.svc",
+        "port": "4222",
+        "cluster": "stan"
+    },
+    {
+        "id": "a97e0a6a.99caa8",
+        "type": "nats-streaming-subscribe",
+        "z": "37f5aae8.e80946",
+        "name": "Objects nats subscription",
+        "server": "9d6bff88.3e548",
+        "channel": "OSSEvents",
+        "clientID": "node-red",
+        "start": "last_reveived",
+        "start_option": "",
+        "durable": true,
+        "durable_name": "node-red",
+        "queue_group": "",
+        "queue_group_name": "",
+        "autoacknowledge": true,
+        "ackwait": 30,
+        "rate_limit": "",
+        "max_in_flight": "",
+        "x": 220,
+        "y": 440,
+        "wires": [
+            [
+                "c00854b.9b637a8"
+            ]
+        ]
+    },
+    {
+        "id": "806210e6.a19f",
+        "type": "debug",
+        "z": "37f5aae8.e80946",
+        "name": "FaaS response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c00854b.9b637a8",
+        "type": "http request",
+        "z": "37f5aae8.e80946",
+        "name": "FaaS request",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.108.126:30949/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 440,
+        "wires": [
+            [
+                "806210e6.a19f"
+            ]
+        ]
+    }
+]
