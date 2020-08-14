@@ -2,7 +2,7 @@ metadata:
   name: objects
   labels:
     nuclio.io/project-name: default
-  resourceVersion: "1951575"
+  resourceVersion: "2050928"
 spec:
   handler: "main:handler"
   runtime: "python:3.6"
@@ -24,14 +24,14 @@ spec:
     - name: TARGET_BUCKET
       value: vod-content
     - name: FFMPEG_TRANSCODING_PROFILES
-      value: "https://raw.githubusercontent.com/pipoe2h/ntnx-objects-nats/master/example_profiles.yaml"
+      value: "https://raw.githubusercontent.com/pipoe2h/ntnx-objects-nats/master/ffmpeg/example_profiles.yaml"
     - name: USP_LICENSE_KEY
       valueFrom:
         secretKeyRef:
           name: usp-license
           key: usp_license_key
   resources: {}
-  imageHash: "1597329460039686683"
+  imageHash: "1597403579550497212"
   triggers:
     OSSEvents:
       class: ""
@@ -57,11 +57,7 @@ spec:
     runtimeAttributes:
       repositories: []
     codeEntryType: sourceCode
-    timestamp: 1597329466
-    image: ""
-    noCache: false
-    offline: false
-    dependencies: []
+    timestamp: 1597403585
   loggerSinks:
     - level: debug
   platform: {}
