@@ -5,7 +5,7 @@ qualities:
     audio_bitrate: "64k"
     profile: "baseline"
     fps: 25
-    gop: 250
+    gop: 120
     preset: medium
   540p:
     bitrate: "800k"
@@ -13,7 +13,7 @@ qualities:
     audio_bitrate: "64k"
     profile: "main"
     fps: 25
-    gop: 250
+    gop: 120
     preset: medium
   720p:
     bitrate: "1000k"
@@ -21,7 +21,7 @@ qualities:
     audio_bitrate: "128k"
     profile: "high"
     fps: 25
-    gop: 250
+    gop: 120
     preset: medium
   1080p:
     bitrate: "12000k"
@@ -29,5 +29,5 @@ qualities:
     audio_bitrate: "128k"
     profile: "high"
     fps: 60
-    gop: 30
+    gop: 120
     preset: medium
