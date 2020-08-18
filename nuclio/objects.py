@@ -23,8 +23,8 @@ boto3.setup_default_session(
 )
 
 # Scripts for encoding/transcoding input video file
-pass1 = Template('ffmpeg -y -i {{ input_file }} -an -c:v libx264 -preset:v {{ preset }} -threads 0 -r {{ fps }} -g {{ gop }} -keyint_min {{ gop }} -sc_threshold 0 -x264opts bframes=1 -pass 1 -b:v {{ bitrate }} -profile:v {{ profile }} -s {{ size }} -f mp4 {{ output_file }}')
-pass2 = Template('ffmpeg -y -i {{ input_file }} -c:a aac -ac 2 -ab {{ audio_bitrate }} -c:v libx264 -preset:v {{ preset }} -threads 0 -r {{ fps }} -g {{ gop }} -keyint_min {{ gop }} -sc_threshold 0 -x264opts bframes=1 -pass 2 -b:v {{ bitrate }} -profile:v {{ profile }} -s {{ size }} -f mp4 {{ output_file }}')
+pass1 = Template('ffmpeg -y -i {{ input_file }} -an -c:v libx264 -preset:v {{ preset }} -threads 0 -r {{ fps }} -g {{ gop }} -keyint_min {{ gop }} -sc_threshold 0 -x264opts bframes=1 -pass 1 -b:v {{ bitrate }} -profile:v {{ profile }} -s {{ size }} -f mp4 -strict experimental -movflags frag_keyframe+empty_moov {{ output_file }}')
+pass2 = Template('ffmpeg -y -i {{ input_file }} -c:a aac -ac 2 -ab {{ audio_bitrate }} -c:v libx264 -preset:v {{ preset }} -threads 0 -r {{ fps }} -g {{ gop }} -keyint_min {{ gop }} -sc_threshold 0 -x264opts bframes=1 -pass 2 -b:v {{ bitrate }} -profile:v {{ profile }} -s {{ size }} -f mp4 -strict experimental -movflags frag_keyframe+empty_moov {{ output_file }}')
 
 def handler(context, event):
     context.logger.info('Using Objects event to encode/transcode file')
