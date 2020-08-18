@@ -28,6 +28,6 @@ qualities:
     size: "1920x1080"
     audio_bitrate: "128k"
     profile: "high"
-    fps: 60
+    fps: 25
     gop: 120
     preset: medium
